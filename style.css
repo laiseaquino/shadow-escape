@@ -1,0 +1,476 @@
+/* Import Google Fonts for retro horror feel */
+@import url('https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;700;900&display=swap');
+
+/* CSS Variables for our horror color schemes */
+:root {
+    /* Level 1 - Office Building (Dark Blues & Grays) */
+    --level1-bg: linear-gradient(135deg, #1a1a2e, #16213e);
+    --level1-primary: #0f3460;
+    --level1-accent: #e94560;
+    
+    /* Level 2 - Hospital (Sickly Greens & Whites) */
+    --level2-bg: linear-gradient(135deg, #0d2818, #1a4c34);
+    --level2-primary: #2d5a3d;
+    --level2-accent: #7dd87d;
+    
+    /* Level 3 - Underground (Deep Reds & Blacks) */
+    --level3-bg: linear-gradient(135deg, #2c0e0e, #4a0e0e);
+    --level3-primary: #5c1a1a;
+    --level3-accent: #ff4757;
+    
+    /* UI Colors */
+    --shadow-dark: rgba(0, 0, 0, 0.8);
+    --shadow-light: rgba(0, 0, 0, 0.4);
+    --health-good: #2ecc71;
+    --health-warning: #f39c12;
+    --health-danger: #e74c3c;
+    --ui-text: #ecf0f1;
+    --ui-bg: rgba(20, 20, 20, 0.9);
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: var(--level1-bg);
+    color: var(--ui-text);
+    overflow: hidden;
+    user-select: none;
+    cursor: default;
+}
+
+/* Game Container */
+.game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Screen Management */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.overlay {
+    background: var(--shadow-dark);
+    backdrop-filter: blur(5px);
+}
+
+/* Main Menu Styles */
+#menu-screen {
+    background: var(--level1-bg);
+    text-align: center;
+}
+
+.game-title {
+    font-family: 'Creepster', cursive;
+    font-size: 4.5rem;
+    color: var(--level1-accent);    text-shadow: 
+        0 0 10px var(--level1-accent),
+        0 0 20px var(--level1-accent);
+    margin-bottom: 0.5rem;
+    animation: glow 2s ease-in-out infinite alternate;
+    letter-spacing: 2px;
+    z-index: 1;
+}
+
+.game-subtitle {
+    font-size: 1.3rem;
+    color: var(--ui-text);
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    text-shadow: 0 0 10px rgba(236, 240, 241, 0.5);
+    font-weight: 400;
+    z-index: 1;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menu-btn {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--level1-primary), var(--level1-accent));
+    color: var(--ui-text);
+    border: 2px solid var(--level1-accent);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 200px;
+}
+
+.menu-btn:hover {
+    background: linear-gradient(45deg, var(--level1-accent), var(--level1-primary));
+    box-shadow: 0 0 20px var(--level1-accent);
+    transform: translateY(-2px);
+}
+
+.menu-btn.small {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.5rem;
+    min-width: 150px;
+}
+
+/* Main Menu */
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.menu-btn {
+    background: linear-gradient(135deg, var(--primary-bg), #1e293b);
+    color: var(--text-color);
+    border: 2px solid var(--level1-accent);
+    padding: 0.7rem 1.5rem;
+    min-width: 150px;
+}
+
+/* Game Screen */
+#game-screen {
+    background: transparent;
+}
+
+.game-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ui-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+    padding: 1rem;
+    background: var(--ui-bg);
+    border-radius: 0 0 10px 10px;
+}
+
+.health-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.health-bar {
+    width: 150px;
+    height: 20px;
+    background: var(--shadow-dark);
+    border: 2px solid var(--ui-text);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.health-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--health-good), var(--health-warning));
+    transition: width 0.3s ease, background 0.3s ease;
+    width: 100%;
+}
+
+.level-info {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--level1-accent);
+    text-shadow: 0 0 10px var(--level1-accent);
+}
+
+.keys-info {
+    font-weight: 700;
+}
+
+/* Canvas */
+#game-canvas {
+    border: 3px solid var(--level1-accent);
+    background: #000;
+    box-shadow: 0 0 30px var(--shadow-dark);
+}
+
+.ui-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 800px;
+    padding: 1rem;
+    background: var(--ui-bg);
+    border-radius: 10px 10px 0 0;
+}
+
+.ui-btn {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    background: var(--level1-primary);
+    color: var(--ui-text);
+    border: 2px solid var(--level1-accent);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ui-btn:hover {
+    background: var(--level1-accent);
+    box-shadow: 0 0 10px var(--level1-accent);
+}
+
+.controls-hint {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Pause Menu */
+.pause-menu, .game-over-menu, .victory-menu {
+    background: var(--ui-bg);
+    padding: 3rem;
+    border-radius: 15px;
+    border: 3px solid var(--level1-accent);
+    text-align: center;
+    box-shadow: 0 0 50px var(--shadow-dark);
+}
+
+.pause-menu h2, .game-over-menu h2, .victory-menu h2 {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5rem;
+    color: var(--level1-accent);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--level1-accent);
+}
+
+/* Game Over Specific */
+#game-over-title {
+    color: var(--health-danger);
+    text-shadow: 0 0 10px var(--health-danger);
+}
+
+.score-display {
+    margin: 1.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Victory Specific */
+.victory-menu h2 {
+    color: var(--health-good);
+    text-shadow: 0 0 10px var(--health-good);
+}
+
+.victory-stats p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes glow {
+    0% {
+        text-shadow: 
+            0 0 5px var(--level1-accent),
+            0 0 10px var(--level1-accent);
+    }
+    50% {
+        text-shadow: 
+            0 0 10px var(--level1-accent),
+            0 0 20px var(--level1-accent);
+    }
+    100% {
+        text-shadow: 
+            0 0 15px var(--level1-accent),
+            0 0 25px var(--level1-accent);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.pulse {
+    animation: pulse 1s infinite;
+}
+
+/* Dynamic Theme Classes */
+.theme-level1 {
+    --current-bg: var(--level1-bg);
+    --current-primary: var(--level1-primary);
+    --current-accent: var(--level1-accent);
+}
+
+.theme-level2 {
+    --current-bg: var(--level2-bg);
+    --current-primary: var(--level2-primary);
+    --current-accent: var(--level2-accent);
+}
+
+.theme-level3 {
+    --current-bg: var(--level3-bg);
+    --current-primary: var(--level3-primary);
+    --current-accent: var(--level3-accent);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .game-title {
+        font-size: 3rem;
+    }
+    
+    #game-canvas {
+        width: 90vw;
+        height: auto;
+    }
+    
+    .ui-top, .ui-bottom {
+        width: 90vw;
+    }
+    
+    .menu-btn {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-title {
+        font-size: 2.5rem;
+    }
+    
+    .ui-top {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.8rem;
+    }
+    
+    .health-bar {
+        width: 120px;
+    }
+    
+    .pause-menu, .game-over-menu, .victory-menu {
+        padding: 2rem;
+        margin: 1rem;
+    }
+}
+
+/* Instructions Dialog */
+.instructions-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.instructions-dialog.hidden {
+    display: none !important;
+}
+
+.dialog-content {
+    background: linear-gradient(135deg, var(--primary-bg), #1e293b);
+    border: 2px solid var(--level1-accent);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 
+        0 0 30px rgba(233, 69, 96, 0.5),
+        inset 0 0 20px rgba(233, 69, 96, 0.1);
+    margin: 2rem;
+}
+
+.dialog-content h3 {
+    color: var(--level1-accent);
+    text-shadow: 0 0 10px var(--level1-accent);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.dialog-content h4 {
+    color: var(--level1-accent);
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    border-top: 1px solid rgba(233, 69, 96, 0.3);
+    padding-top: 1rem;
+}
+
+.dialog-text p {
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+}
+
+.dialog-text strong {
+    color: #fbbf24;
+    font-weight: bold;
+    text-shadow: 0 0 5px #fbbf24;
+}
+
+.close-btn {
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, var(--level1-primary), var(--level1-accent));
+    color: var(--ui-text);
+    border: 2px solid var(--level1-accent);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 150px;
+    display: block;
+    margin: 2rem auto 0;
+}
+
+.close-btn:hover {
+    background: linear-gradient(45deg, var(--level1-accent), var(--level1-primary));
+    box-shadow: 0 0 20px var(--level1-accent);
+    transform: translateY(-2px);
+}

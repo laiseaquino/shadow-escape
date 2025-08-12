@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Shadow Escape - Horror Arcade Game</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="favicon-16.svg">
+    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">        <!-- Main Menu -->
+        <div id="menu-screen" class="screen">
+            <div id="main-menu" class="main-menu">
+                <h1 class="game-title">SHADOW ESCAPE</h1>
+                <p class="game-subtitle">Night Shift Horror - Can You Survive Until Dawn?</p>
+                  <div class="menu-buttons">
+                    <button id="start-btn" class="menu-btn">START GAME</button>
+                    <button id="instructions-btn" class="menu-btn">INSTRUCTIONS</button>
+                </div>            </div>
+        </div>
+
+        <!-- Instructions Dialog (hidden by default) -->
+        <div id="instructions-dialog" class="instructions-dialog hidden">
+            <div class="dialog-content">
+                <h3>INSTRUCTIONS</h3>                <div class="dialog-text">
+                    <p>You are Jake Morrison, a security guard on the night shift at Blackwood Corporate Plaza.</p>
+                    <p>During your routine patrol, the lights suddenly cut out. Emergency power kicks in, but something is wrong. <strong>Dark shadows</strong> move in the corridors - things that shouldn't exist.</p>
+                    <p>The building's security system has malfunctioned, locking down all exits. You must collect the <strong>emergency override keys</strong> from each section to escape before the shadows consume you.</p>
+                    <p>Your flashlight is your only protection against the encroaching darkness...</p>
+                    
+                    <h4>CONTROLS</h4>
+                    <p>• Use <strong>WASD</strong> or <strong>Arrow Keys</strong> to move</p>
+                    <p>• Collect all <strong>3 emergency keys</strong> to unlock the exit</p>
+                    <p>• Follow the <strong>compass arrows</strong> to find keys in the darkness</p>
+                    <p>• Avoid the <strong>shadow creatures</strong> - they drain your life force</p>
+                    <p>• Escape through <strong>3 terrifying levels</strong>: Office → Hospital → Underground</p>
+                    <p>• Stay in the light - darkness is your enemy</p>
+                </div>
+                <button id="close-dialog" class="close-btn">BACK</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen hidden">
+            <div class="game-ui">
+                <div class="ui-top">
+                    <div class="health-container">
+                        <span>Health:</span>
+                        <div class="health-bar">
+                            <div id="health-fill" class="health-fill"></div>
+                        </div>
+                    </div>
+                    <div class="level-info">
+                        <span id="level-text">Level 1</span>
+                    </div>
+                    <div class="keys-info">
+                        <span>Keys: </span>
+                        <span id="keys-count">0/3</span>
+                    </div>
+                </div>
+                <canvas id="game-canvas" width="800" height="600"></canvas>
+                <div class="ui-bottom">
+                    <button id="pause-btn" class="ui-btn">PAUSE</button>
+                    <div class="controls-hint">Use WASD or Arrow Keys to move</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pause-screen" class="screen hidden overlay">
+            <div class="pause-menu">
+                <h2>GAME PAUSED</h2>
+                <button id="resume-btn" class="menu-btn">RESUME</button>
+                <button id="restart-btn" class="menu-btn">RESTART</button>
+                <button id="main-menu-btn" class="menu-btn">MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen hidden overlay">
+            <div class="game-over-menu">
+                <h2 id="game-over-title">GAME OVER</h2>
+                <p id="game-over-message">The shadows consumed you...</p>
+                <div class="score-display">
+                    <span>Level Reached: </span>
+                    <span id="final-level">1</span>
+                </div>
+                <button id="try-again-btn" class="menu-btn">TRY AGAIN</button>
+                <button id="menu-btn" class="menu-btn">MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen hidden overlay">
+            <div class="victory-menu">
+                <h2>VICTORY!</h2>
+                <p>You escaped the shadows!</p>
+                <div class="victory-stats">
+                    <p>All 3 levels completed!</p>
+                    <p>You are a true survivor!</p>
+                </div>
+                <button id="play-again-btn" class="menu-btn">PLAY AGAIN</button>
+                <button id="victory-menu-btn" class="menu-btn">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <!-- Dark background -->
+  <rect width="16" height="16" fill="#1a1a2e"/>
+  
+  <!-- Shadow figure -->
+  <path d="M4 5 Q8 4 12 5 Q12 8 10 10 Q8 12 8 14 Q8 12 6 10 Q4 8 4 5 Z" fill="#2c2c54" opacity="0.8"/>
+  
+  <!-- Glowing eyes -->
+  <circle cx="6.5" cy="7" r="0.8" fill="#e94560"/>
+  <circle cx="9.5" cy="7" r="0.8" fill="#e94560"/>
+  
+  <!-- Eye glow effect -->
+  <circle cx="6.5" cy="7" r="1.2" fill="#e94560" opacity="0.4"/>
+  <circle cx="9.5" cy="7" r="1.2" fill="#e94560" opacity="0.4"/>
+</svg>
